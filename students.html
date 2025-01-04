@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجامعة السعودية الإلكترونية - بوابة الطالب</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="شعار الجامعة">
+        </div>
+        <h1>الجامعة السعودية الإلكترونية</h1>
+    </div>
+
+    <div class="container">
+        <h2>بيانات الطالبة</h2>
+        <div class="info">
+            <strong>اسم الطالب:</strong> <span id="studentName">منيب جميل امين</span>
+        </div>
+        <div class="info">
+            <strong>التخصص:</strong> <span id="studentMajor">تسويق</span>
+        </div>
+        <div class="info">
+            <strong>الدرجة:</strong> <span id="degree">دبلوم</span>
+        </div>
+        <div class="button-group">
+            <button class="button" id="acceptButton">تأكيد القبول</button>
+            <button class="button cancel-button" id="cancelButton">إلغاء القبول</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2024 الجامعة السعودية الإلكترونية. جميع الحقوق محفوظة.
+    </footer>
+
+    <script>
+        document.getElementById('acceptButton').onclick = function() {
+            window.location.href = 'payment.html';
+
+        };
+
+        document.getElementById('cancelButton').onclick = function() {
+            alert('تم إلغاء قبول الطالب');
+        };
+    </script>
+</body>
+</html>

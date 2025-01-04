@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تغيير كلمة المرور - جامعة الملك خالد</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #512da8;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .eye-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 20px;
+      display: none; /* إخفاء أيقونة العين افتراضيًا */
+    }
+
+    button {
+      width: 100%;
+      background-color: #2e7d32;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    .message {
+      color: red;
+      margin: 10px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>تغيير كلمة المرور</h1>
+    <div id="message" class="message"></div>
+    <form id="changePasswordForm" onsubmit="return changePassword(event)">
+      <div class="input-container">
+        <input type="text" id="studentId" placeholder="اسم المستخدم" required>
+      </div>
+
+      <div class="input-container">
+        <input type="password" id="currentPassword" placeholder="كلمة السر الحالية" required>
+        <span class="eye-icon" id="currentEyeIcon" onclick="toggleCurrentPasswordVisibility()">👁️</span>
+      </div>
+
+      <div class="input-container">
+        <input type="password" id="newPassword" placeholder="كلمة السر الجديدة" required>
+        <span class="eye-icon" id="newEyeIcon" onclick="toggleNewPasswordVisibility()">👁️</span>
+      </div>
+
+      <button type="submit">تغيير كلمة المرور</button>
+    </form>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة لدى جامعة الملك خالد &copy; 2024
+  </footer>
+
+  <script>
+    function toggleCurrentPasswordVisibility() {
+      const passwordInput = document.getElementById('currentPassword');
+      const eyeIcon = document.getElementById('currentEyeIcon');
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+      eyeIcon.style.display = passwordInput.type === "password" ? "inline" : "none";
+    }
+
+    function toggleNewPasswordVisibility() {
+      const passwordInput = document.getElementById('newPassword');
+      const eyeIcon = document.getElementById('newEyeIcon');
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+      eyeIcon.style.display = passwordInput.type === "password" ? "inline" : "none";
+    }
+
+    function changePassword(event) {
+      event.preventDefault();
+      const studentId = document.getElementById('studentId').value.trim();
+      const currentPassword = document.getElementById('currentPassword').value.trim();
+      const newPassword = document.getElementById('newPassword').value.trim();
+      const messageDiv = document.getElementById('message');
+
+      messageDiv.textContent = "";
+
+      // استرجاع كلمة المرور المخزنة
+      const storedPassword = localStorage.getItem(studentId);
+
+      if (!studentId || !currentPassword || !newPassword) {
+        messageDiv.textContent = "يرجى ملء جميع الحقول.";
+        return false;
+      }
+
+      // التحقق من صحة كلمة المرور الحالية
+      if (storedPassword && currentPassword === storedPassword) {
+        // تحديث كلمة المرور الجديدة
+        localStorage.setItem(studentId, newPassword);
+        messageDiv.textContent = "تم تغيير كلمة المرور بنجاح.";
+        messageDiv.style.color = "green";
+      } else {
+        messageDiv.textContent = "خطأ: كلمة السر الحالية غير صحيحة.";
+      }
+    }
+  </script>
+</body>
+</html>
